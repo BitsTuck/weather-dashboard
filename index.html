@@ -8,16 +8,18 @@
     <title>Weather Dashboard</title>
 </head>
 <body>
-    <header class="container">
+    <header class="container vw-100">
+      <div class = "header text-center bg-dark text-white p-3 mb-2">
         <h1>Weather Dashboard</h1>
+      </div>
     </header>
 
-    <div class="container">
+    <div class="container vw-100">
         <div class="row">
           <div class="col-3 border border-2 border-dark m-3 p-2">
             <form class="search-form">
                 <div class="mb-3">
-                  <label for="search" class="form-label">Search for City</label>
+                  <label for="location" class="form-label">Search for City</label>
                   <input type="text" class="form-control" id="location" aria-describedby="citySearch">
                   <div id="ins-search" class="form-text">Type a city to view the weather.</div>
                 </div>
@@ -34,7 +36,7 @@
                   <p class="humidity"></p>
                   </div>
             </div>
-            <div class="row">
+            <div class="row this-week">
                 <div class="col border border-2 border-dark m-2 day-1">
                   Column
                 </div>
