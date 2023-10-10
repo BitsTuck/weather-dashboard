@@ -1,57 +1,48 @@
 var searchFormEl = $('.search-form');
 var todayWeatherEl = $('.day-today')
 var fiveDayEl = $('.this-week')
+var oneDayEl = $('.day')
+console.log(oneDayEl)
 
-function getApi() {
-    var search = 'http://api.openweathermap.org/geo/1.0/direct?q=paris&limit=5&appid=1961d955221a31999d250c53fe92af36';
+
+function getApi(city) {
   
-    fetch(search)
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (data) {
-        console.log(data)
+  var search = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=1961d955221a31999d250c53fe92af36&units=imperial`
 
+
+  fetch(search)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data)
+      for (let i = 0; i < 5; i++) {
+        console.log(oneDayEl[i])
+        console.log(i*8)
+        
       }
-      )}
-getApi()
 
-function getParams() {
-    //search will need to break down for the address 'q=' + '&limit
-    //will need to take out spaces in string (clinton, ct won't work)
-    // Get the search params out of the URL (i.e. `?q=london&format=photo`) and convert it to an array (i.e. ['?q=london', 'format=photo'])
-    var searchParamsArr = document.location.search.split('&'); //does not need to split
-
-    // Get the query and format values
-    var query = searchParamsArr[0].split(',').pop(); //no need to pop, we're not separating the query from the format
-
-    if (!query) {
-      searchFormEl.innerHTML = '<p>Please search again</p>'
     }
-  
-    searchApi(query)
+    )
+
+
+
+
+    
   }
 
 
-//have to put search back together for actual search
-//will need a "try again" for search in incorrect format
-
-
-
-
-
 function handleSearchFormSubmit(event) {
-    event.preventDefault();
-  
-    var searchInputVal = $('#location').value;
-    
-    if (!searchInputVal) {
-      console.error('Please enter a city name');
-      return;
-    }
-    
-    var queryString = './search-results.html?q=' + searchInputVal + '&limit=5&appid=1961d955221a31999d250c53fe92af36'
-    // location.assign(queryString);
+  event.preventDefault();
+
+  var searchInputVal = $('#location').val();
+
+  if (!searchInputVal) {
+    console.error('Please enter a city name');
+    return;
+  }
+
+  getApi(searchInputVal)
 
 }
 
