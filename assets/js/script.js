@@ -36,7 +36,7 @@ function getApi(city) {
     .then(function (data) {
       console.log(data)
       console.log(todayWeatherEl)
-      todayWeatherEl[i].innerHTML= `<h2>Today's Weather</h2>`
+      todayWeatherEl.innerHTML= `<h2>Today's Weather</h2>`
   })
 
 
