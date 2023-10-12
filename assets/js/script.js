@@ -2,11 +2,10 @@ var searchFormEl = $('.search-form');
 var todayWeatherEl = $('.today')
 var oneDayEl = $('.day')
 var searchCol = $('.history')
-// var weatherHistory = localStorage.getItem(weatherHistory)
 
 
 function getApi(city) {
-  
+  //calls five-day weather API and appends data to the page
   var searchFiveDay = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=1961d955221a31999d250c53fe92af36&units=imperial`
 
 
@@ -23,12 +22,13 @@ function getApi(city) {
         <p class="temp">Temperature: ${data.list[i*8].main.temp}&deg F</p>
         <p class="wind">Wind Speed: ${data.list[i*8].wind.speed} MPH</p>
         <p class="humidity">Humidity: ${data.list[i*8].main.humidity}%</p>`
+        //below was the attempt to add the icons to the five-day data. As of now it returns "undefined"
         // <span>${data.list[i*8].weather.icon}</span>
 
       } 
     })
 
-    
+   //calls current day weather function and appends data to the page 
    var searchCurrent = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=1961d955221a31999d250c53fe92af36&units=imperial`
 
     fetch(searchCurrent)
@@ -44,6 +44,7 @@ function getApi(city) {
       let todayInfo= document.createElement('p');
       todayInfo.textContent = `Temperature: ${data.main.temp} Wind Speed: ${data.wind.speed} Humidity: ${data.main.humidity}`
       todayWeatherEl.append(todayInfo)
+      //below was the attempt to add the icons to current day data
       // let todayIcon= document.createElement('span');
       // todayIcon.setAttribute(`${data.weather[i].icon}`)
       // todayWeatherEl.append(todayIcon)
@@ -55,9 +56,8 @@ function getApi(city) {
 
 function handleSearchFormSubmit(event) {
   event.preventDefault();
-
+//search button captures city name and runs getAPI function
   var searchInputVal = $('#location').val();
-  // console.log("🚀 ~ file: script.js:65 ~ handleSearchFormSubmit ~ searchInputVal:", searchInputVal)
 
   if (!searchInputVal) {
     console.error('Please enter a city name');
@@ -65,7 +65,7 @@ function handleSearchFormSubmit(event) {
   }
 
   getApi(searchInputVal)
-
+  //stores data locally in an array
   var cities = JSON.parse(localStorage.getItem('city'))
   console.log(cities)
   if (!cities) {
@@ -73,7 +73,7 @@ function handleSearchFormSubmit(event) {
   };
 
   cities.push(searchInputVal)
-
+//retrieves data from storage and appends to a button on the page. Right now it overwrites the current button, as opposed to adding buttons for subsequent searches.
   localStorage.setItem('city', JSON.stringify(cities))
   console.log(localStorage)
 
