@@ -2,9 +2,7 @@ var searchFormEl = $('.search-form');
 var todayWeatherEl = $('.today')
 var oneDayEl = $('.day')
 var searchCol = $('.history')
-var weatherHistory = localStorage.getItem(weatherHistory)
-
-console.log(weatherHistory)
+// var weatherHistory = localStorage.getItem(weatherHistory)
 
 
 function getApi(city) {
@@ -52,9 +50,6 @@ function getApi(city) {
 
   })
 
-
-
-
 }
 
 
@@ -62,6 +57,7 @@ function handleSearchFormSubmit(event) {
   event.preventDefault();
 
   var searchInputVal = $('#location').val();
+  // console.log("🚀 ~ file: script.js:65 ~ handleSearchFormSubmit ~ searchInputVal:", searchInputVal)
 
   if (!searchInputVal) {
     console.error('Please enter a city name');
@@ -70,41 +66,26 @@ function handleSearchFormSubmit(event) {
 
   getApi(searchInputVal)
 
-  // var cities = JSON.parse(localStorage.getItem('city'))
-  // console.log(cities)
-  // if (!cities) {
-  //   cities = []
-  // };
+  var cities = JSON.parse(localStorage.getItem('city'))
+  console.log(cities)
+  if (!cities) {
+    cities = []
+  };
 
-  // cities.push(searchInputVal)
+  cities.push(searchInputVal)
 
-  // localStorage.setItem('city', JSON.stringify(city))
-  // console.log(localStorage)
+  localStorage.setItem('city', JSON.stringify(cities))
+  console.log(localStorage)
+
+  for (var i = 0; i < cities.length; i++) {
+    var cityName = cities[i];
+    var btn = $('.recall');
+    btn.text(cityName);
+
+   searchFormEl.append(btn);
 
 }
+}
+
 
 searchFormEl.on('submit', handleSearchFormSubmit);
-
-// var brewery = JSON.parse(localStorage.getItem('Brewery'));
-
-// console.log(brewery);
-
-// for (var i = 0; i < brewery.length; i++) {
-//     var breweryName = brewery[i];
-//     var li = $('<li></li>');
-//     li.text(breweryName);
-
-//     $('.brewList').append(li);
-// };
-
-// $('.brewStorage').on('submit', function(event) {
-//   event.preventDefault();
-//   console.log($('.brewery').val());
-//   var favInput = $('.brewery').val();
-//   var brewery = JSON.parse(localStorage.getItem('Brewery'));
-//   if (!brewery) {
-//       brewery = [];
-//   };
-//   brewery.push(favInput);
-//   localStorage.setItem("Brewery", JSON.stringify(brewery));
-// })
